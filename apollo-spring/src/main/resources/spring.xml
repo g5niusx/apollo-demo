@@ -6,7 +6,7 @@
 
     <apollo:config/>
 
-    <bean id="testApp" class="com.apollo.demo.config.ApolloConfig.TestApp">
+    <bean id="testApp" class="com.apollo.demo.spring.config.ApolloConfig.TestApp">
         <property name="host" value="${redis.host:127.0.0.1}"/>
     </bean>
 

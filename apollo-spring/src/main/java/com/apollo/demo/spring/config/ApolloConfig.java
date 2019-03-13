@@ -1,9 +1,7 @@
-package com.apollo.demo.config;
+package com.apollo.demo.spring.config;
 
 import lombok.Data;
 
-/*@Configuration
-@EnableApolloConfig*/
 public class ApolloConfig {
 
 
