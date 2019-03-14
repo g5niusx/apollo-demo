@@ -3,9 +3,10 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:apollo="http://www.ctrip.com/schema/apollo"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd http://www.ctrip.com/schema/apollo http://www.ctrip.com/schema/apollo.xsd">
 
-
+    <!--没有明确指定 namespace 的时候使用默认的 application-->
     <apollo:config/>
 
+    <!--将 apollo 的 redis.host 配置项注入到了 host 里面，如果没有使用默认值 127.0.0.1-->
     <bean id="testApp" class="com.apollo.demo.spring.config.ApolloConfig.TestApp">
         <property name="host" value="${redis.host:127.0.0.1}"/>
     </bean>
