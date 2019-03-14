@@ -12,6 +12,7 @@ import static com.apollo.demo.spring.boot.ApolloSpringBootApplication.APP;
  */
 @Data
 @ConfigurationProperties(prefix = "app")
+// bean 动态刷新的注释
 @RefreshScope
 @Component(APP)
 public class App {
