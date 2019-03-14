@@ -1,2 +1,12 @@
 server:
   port: 8888
+
+apollo:
+  bootstrap:
+    # 和 @EnableApolloConfig 注解等效
+    enabled: true
+  # 配置远程地址
+  meta: http://localhost:9080
+
+app:
+  id: SampleApp
