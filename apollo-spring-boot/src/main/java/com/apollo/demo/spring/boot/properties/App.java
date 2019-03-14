@@ -11,10 +11,6 @@ import static com.apollo.demo.spring.boot.ApolloSpringBootApplication.APP;
  * 通过远程直接注入bean对象
  */
 @Data
-@ConfigurationProperties(prefix = "app")
-// bean 动态刷新的注释
-@RefreshScope
-@Component(APP)
 public class App {
 
     private String name;
