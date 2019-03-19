@@ -5,8 +5,16 @@ apollo:
   bootstrap:
     # 和 @EnableApolloConfig 注解等效
     enabled: true
+    # 使用 application,和datasource的命名空间配置
+    namespaces: application,TEST1.datasource
   # 配置远程地址
   meta: http://localhost:9080
 
 app:
   id: SampleApp
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/dev?useUnicode=true&characterEncoding=utf8
+    username: app
+    password: "!QAZ2wsx"
