@@ -7,6 +7,7 @@ import com.ctrip.framework.apollo.model.ConfigChangeEvent;
 import com.ctrip.framework.apollo.spring.annotation.ApolloConfigChangeListener;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -22,11 +23,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 @SpringBootApplication
 @RestController
 @Slf4j
-public class ApolloSpringBootApplication {
+public class ApolloSpringBootApplication implements InitializingBean {
 
     public static final  String APP                    = "app";
     private static final String DATA_SOURCE_PROPERTIES = "dataSourceProperties";
@@ -52,16 +55,16 @@ public class ApolloSpringBootApplication {
     }
 
 
+    private void run() {
+        ResultSet execute = jdbcTemplate.execute(SQL, (PreparedStatementCallback<ResultSet>) PreparedStatement::executeQuery);
+        log.info("查询结果为:{}", execute == null ? "结果为空" : execute.toString());
+    }
+
     @GetMapping("test")
     public String test() {
         return test;
     }
 
-    @GetMapping("dataSource")
-    public String dataSourceTest() {
-        ResultSet execute = jdbcTemplate.execute(SQL, (PreparedStatementCallback<ResultSet>) PreparedStatement::executeQuery);
-        return dataSource.getJdbcUrl() + "\n" + execute.toString();
-    }
 
     /**
      * 测试从远程直接加载bean
@@ -129,4 +132,10 @@ public class ApolloSpringBootApplication {
                 .type(HikariDataSource.class).build();
     }
 
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        // 通过定时执行sql来测试动态替换数据源会不会对当前数据源产生影响和报错
+        ScheduledThreadPoolExecutor scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(20);
+        scheduledThreadPoolExecutor.scheduleAtFixedRate(this::run, 0, 1, TimeUnit.SECONDS);
+    }
 }
