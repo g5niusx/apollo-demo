@@ -8,10 +8,10 @@ apollo:
     # 使用 application,和datasource的命名空间配置
     namespaces: application,TEST1.datasource
   # 配置远程地址
-  meta: http://localhost:9080
+  meta: http://106.54.227.205:8080
 
 app:
-  id: SampleApp
+  id: g5niusx
 
 spring:
   datasource:

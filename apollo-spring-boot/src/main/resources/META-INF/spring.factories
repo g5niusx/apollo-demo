@@ -1,0 +1,3 @@
+org.springframework.context.ApplicationListener=\
+com.apollo.demo.spring.boot.config.ApolloStartingConfig,\
+  com.apollo.demo.spring.boot.config.ApolloConfig
